@@ -12,9 +12,15 @@ class TodoListView(APIView):
 
     def get(self, request):
         # Implement this method - return all todo items from db instance above.
-        return Response({}, status=status.HTTP_200_OK)
+        todoData = db['todo_collection'].find()
+
+        todoList = []
+        for item in list(todoData) :
+            todoList.append(item['todo'])
+        return Response(todoList, status=status.HTTP_200_OK)
         
     def post(self, request):
         # Implement this method - accept a todo item in a mongo collection, persist it using db instance above.
-        return Response({}, status=status.HTTP_200_OK)
+        db['todo_collection'].insert_one(request.data)
+        return Response("Success", status=status.HTTP_200_OK)
 
