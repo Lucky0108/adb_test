@@ -13,10 +13,11 @@ class TodoListView(APIView):
     def get(self, request):
         # Implement this method - return all todo items from db instance above.
         todoData = db['todo_collection'].find()
-
         todoList = []
-        for item in list(todoData) :
-            todoList.append(item['todo'])
+
+        for item in list(todoData):
+                todoList.append(item['todo'])
+	
         return Response(todoList, status=status.HTTP_200_OK)
         
     def post(self, request):
